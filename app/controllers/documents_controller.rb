@@ -28,6 +28,10 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
+        document_params[:text].each_line do |line|
+          Line.new(text: line, document: @document).save
+        end
+
         format.html { redirect_to @document, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
       else
