@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414150701) do
+ActiveRecord::Schema.define(version: 20150414152124) do
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "line_id"
+    t.integer  "user_id"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["line_id"], name: "index_comments_on_line_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "documents", force: :cascade do |t|
     t.string   "title"
@@ -24,7 +35,7 @@ ActiveRecord::Schema.define(version: 20150414150701) do
 
   create_table "lines", force: :cascade do |t|
     t.integer  "document_id"
-    t.string   "text"
+    t.text     "text"
     t.integer  "number"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
